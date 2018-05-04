@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4591E2CA-30C7-4B0E-917F-4195EC5246A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhoenixRising.InternalAPI</RootNamespace>
+    <AssemblyName>PhoenixRising.InternalAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.2.2.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.2\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\SettingsHud\SetCurrentHUDRequest.cs" />
+    <Compile Include="Account\SettingsHud\SetCurrentHUDResponse.cs" />
+    <Compile Include="Administration\AccountAdmin\BanUserRequest.cs" />
+    <Compile Include="Administration\AccountAdmin\BanUserResponse.cs" />
+    <Compile Include="Administration\AccountAdmin\CreateUserRequest.cs" />
+    <Compile Include="Administration\AccountAdmin\CreateUserResponse.cs" />
+    <Compile Include="Administration\AccountAdmin\ResetPasswordRequest.cs" />
+    <Compile Include="Administration\AccountAdmin\ResetPasswordResponse.cs" />
+    <Compile Include="Account\Account\FindRequest.cs" />
+    <Compile Include="Account\Account\FindResponse.cs" />
+    <Compile Include="Account\Account\GetUserDetailsRequest.cs" />
+    <Compile Include="Account\Account\GetUserDetailsResponse.cs" />
+    <Compile Include="Account\Account\PingRequest.cs" />
+    <Compile Include="Account\Account\PingResponse.cs" />
+    <Compile Include="Account\Account\SetStatusRequest.cs" />
+    <Compile Include="Account\Account\SetStatusResponse.cs" />
+    <Compile Include="AuthenticationStore.cs" />
+    <Compile Include="Authentication\LoginRequest.cs" />
+    <Compile Include="Authentication\LoginResponse.cs" />
+    <Compile Include="Authentication\RefreshRequest.cs" />
+    <Compile Include="Authentication\RefreshResponse.cs" />
+    <Compile Include="Debug\VersionRequest.cs" />
+    <Compile Include="Debug\VersionResponse.cs" />
+    <Compile Include="Account\Friends\DeleteFriendRequest.cs" />
+    <Compile Include="Account\Friends\DeleteFriendResponse.cs" />
+    <Compile Include="Account\Friends\GetFriendsRequest.cs" />
+    <Compile Include="Account\Friends\GetFriendsResponse.cs" />
+    <Compile Include="Account\Friends\IgnoreRequestRequest.cs" />
+    <Compile Include="Account\Friends\IgnoreRequestResponse.cs" />
+    <Compile Include="Account\Friends\SendFriendRequestRequest.cs" />
+    <Compile Include="Account\Friends\SendFriendRequestResponse.cs" />
+    <Compile Include="Account\Friends\UpdateStatusRequest.cs" />
+    <Compile Include="Account\Friends\UpdateStatusResponse.cs" />
+    <Compile Include="Instance\CreateInstanceRequest.cs" />
+    <Compile Include="Instance\CreateInstanceResponse.cs" />
+    <Compile Include="Instance\GetInstanceRequest.cs" />
+    <Compile Include="Instance\GetInstanceResponse.cs" />
+    <Compile Include="Instance\ListInstanceRequest.cs" />
+    <Compile Include="Instance\ListInstanceResponse.cs" />
+    <Compile Include="Instance\RemoveInstanceRequest.cs" />
+    <Compile Include="Instance\RemoveInstanceResponse.cs" />
+    <Compile Include="Launcher\GetBuildsRequest.cs" />
+    <Compile Include="Launcher\GetBuildsResponse.cs" />
+    <Compile Include="Launcher\GetFilesRequest.cs" />
+    <Compile Include="Launcher\GetFilesResponse.cs" />
+    <Compile Include="Account\SettingsHud\GetCurrentHUDRequest.cs" />
+    <Compile Include="Account\SettingsHud\GetCurrentHUDResponse.cs" />
+    <Compile Include="Account\SettingsHud\GetHUDRequest.cs" />
+    <Compile Include="Account\SettingsHud\GetHUDResponse.cs" />
+    <Compile Include="Account\SettingsHud\GetHUDListRequest.cs" />
+    <Compile Include="Account\SettingsHud\GetHUDListResponse.cs" />
+    <Compile Include="Account\SettingsHud\SaveHUDRequest.cs" />
+    <Compile Include="Account\SettingsHud\SaveHUDResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetMinionRequest.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetMinionResponse.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetMinionsRequest.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetMinionsResponse.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetTowerRequest.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetTowerResponse.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetTowersRequest.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetTowersResponse.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetWorldRequest.cs" />
+    <Compile Include="Mechanics\WorldMechanic\GetWorldResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Socket\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
@@ -17,11 +18,10 @@ namespace PhoenixRising.InternalAPI.Tests
             string refreshToken = "refreshtokenhere";
             AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
 
-            FindRequest request = new FindRequest("linternator", auth);
+            APIConnection connection = new APIConnection(ConfigurationManager.AppSettings["APIURL"]);
+
+            FindRequest request = new FindRequest(auth, connection, "linterator");
             FindResponse response = request.Send();
         }
-
-
-
     }
 }

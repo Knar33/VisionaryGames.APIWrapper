@@ -39,6 +39,7 @@
       <HintPath>..\packages\RestSharp.106.2.2\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -65,6 +66,7 @@
     <Compile Include="Account\Account\PingResponse.cs" />
     <Compile Include="Account\Account\SetStatusRequest.cs" />
     <Compile Include="Account\Account\SetStatusResponse.cs" />
+    <Compile Include="APIConnection.cs" />
     <Compile Include="AuthenticationStore.cs" />
     <Compile Include="Authentication\LoginRequest.cs" />
     <Compile Include="Authentication\LoginResponse.cs" />

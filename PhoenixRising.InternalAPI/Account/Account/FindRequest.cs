@@ -10,19 +10,20 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class FindRequest
     {
-        public FindRequest(string nickname, AuthenticationStore auth)
+        public FindRequest(AuthenticationStore auth, APIConnection connection, string nickname)
         {
-            Nickname = nickname;
             Auth = auth;
+            Connection = connection;
+            Nickname = nickname;
         }
 
         public string Nickname { get; set; }
-
         public AuthenticationStore Auth { get; set; }
+        public APIConnection Connection { get; set; }
 
         public FindResponse Send()
         {
-            var client = new RestClient("https://pr-api-uks-dev.azurewebsites.net");
+            var client = new RestClient(Connection.URL);
 
             var request = new RestRequest("v1/account/find/{nickname}", Method.GET);
             request.AddHeader("X-Access-Token", Auth.AccessToken);

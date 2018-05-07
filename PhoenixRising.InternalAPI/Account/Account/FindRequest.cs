@@ -29,8 +29,12 @@ namespace PhoenixRising.InternalAPI.Account.Account
             request.AddHeader("X-Access-Token", Auth.AccessToken);
             request.AddUrlSegment("nickname", Nickname);
             
-            var response = client.Execute<FindResponse>(request);
-            return response.Data;
+            var res = client.Execute<FindResponse>(request);
+            FindResponse response = res.Data;
+            response.Content = res.Content;
+            response.StatusCode = res.StatusCode;
+
+            return response;
         }
     }
 }

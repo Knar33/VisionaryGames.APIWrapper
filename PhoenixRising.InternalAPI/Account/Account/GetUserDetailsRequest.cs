@@ -9,31 +9,27 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class GetUserDetailsRequest
     {
-        public GetUserDetailsRequest(AuthenticationStore auth, APIConnection connection, string userID)
+        public GetUserDetailsRequest(AuthenticationStore auth, APIConnection connection)
         {
             Auth = auth;
             Connection = connection;
-            UserID = userID;
+            UserID = auth.UserID;
         }
 
-        public string UserID { get; set; }
+        public Guid UserID { get; set; }
         public AuthenticationStore Auth { get; set; }
         public APIConnection Connection { get; set; }
 
         public GetUserDetailsResponse Send()
         {
-            var client = new RestClient(Connection.URL);
-
-            var request = new RestRequest("v1/account/{userID}", Method.GET);
+            RestClient client = new RestClient(Connection.URL);
+            RestRequest request = new RestRequest("v1/account/{userID}", Method.GET);
             request.AddHeader("X-Access-Token", Auth.AccessToken);
-            request.AddUrlSegment("nickname", UserID);
+            request.AddUrlSegment("userID", UserID);
 
             var res = client.Execute<GetUserDetailsResponse>(request);
-            GetUserDetailsResponse response = res.Data;
-            response.Content = res.Content;
-            response.StatusCode = res.StatusCode;
 
-            return response;
+            return new GetUserDetailsResponse(res);
         }
     }
 }

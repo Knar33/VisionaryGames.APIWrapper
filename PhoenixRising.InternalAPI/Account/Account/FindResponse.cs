@@ -8,5 +8,6 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class FindResponse
     {
+        public string USER_ID { get; set; }
     }
 }

@@ -10,6 +10,24 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
 {
     class ResetPasswordResponse
     {
+        public ResetPasswordResponse(IRestResponse<ResetPasswordResponse> res)
+        {
+            StatusCode = res.StatusCode;
+            if (res.StatusCode == HttpStatusCode.OK)
+            {
+
+            }
+            else
+            {
+                Content = res.Content;
+            }
+        }
+
+        public ResetPasswordResponse()
+        {
+
+        }
+
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
     }

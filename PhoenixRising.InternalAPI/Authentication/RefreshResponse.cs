@@ -8,14 +8,15 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Authentication
 {
-    class RefreshResponse
+    public class RefreshResponse
     {
         public RefreshResponse(IRestResponse<RefreshResponse> res)
         {
             StatusCode = res.StatusCode;
             if (res.StatusCode == HttpStatusCode.OK)
             {
-
+                access_token = res.Data.access_token;
+                expireTime = res.Data.expireTime;
             }
             else
             {
@@ -30,5 +31,8 @@ namespace PhoenixRising.InternalAPI.Authentication
 
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
+        
+        public string access_token { get; set; }
+        public string expireTime { get; set; }
     }
 }

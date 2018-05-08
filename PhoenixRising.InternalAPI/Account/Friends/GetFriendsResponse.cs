@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Friends
 {
-    class GetFriendsResponse
+    public class GetFriendsResponse
     {
         public GetFriendsResponse(IRestResponse<GetFriendsResponse> res)
         {

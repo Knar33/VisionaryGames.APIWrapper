@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Friends
 {
-    class IgnoreRequestRequest
+    public class IgnoreRequestRequest
     {
         public IgnoreRequestRequest(AuthenticationStore auth, APIConnection connection)
         {

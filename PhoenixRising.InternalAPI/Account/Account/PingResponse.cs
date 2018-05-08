@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Account
 {
-    class PingResponse
+    public class PingResponse
     {
         public PingResponse(IRestResponse<PingResponse> res)
         {

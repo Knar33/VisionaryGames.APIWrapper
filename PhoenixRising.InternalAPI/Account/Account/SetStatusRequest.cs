@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Account
 {
-    class SetStatusRequest
+    public class SetStatusRequest
     {
         public SetStatusRequest(AuthenticationStore auth, APIConnection connection)
         {

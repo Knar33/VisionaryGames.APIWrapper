@@ -3,6 +3,7 @@ using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
+using PhoenixRising.InternalAPI.Authentication;
 
 namespace PhoenixRising.InternalAPI.Tests
 {
@@ -13,7 +14,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void FindRequest()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net");
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
             FindRequest request = new FindRequest(connection, "linternatora");
             FindResponse response = request.Send();
@@ -28,7 +29,7 @@ namespace PhoenixRising.InternalAPI.Tests
             string refreshToken = "refreshtokenhere";
             AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
 
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net");
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
             GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
             GetUserDetailsResponse response = request.Send();
@@ -43,13 +44,39 @@ namespace PhoenixRising.InternalAPI.Tests
             string refreshToken = "refreshtokenhere";
             AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
 
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net");
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
             GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
             GetUserDetailsResponse response = request.Send();
         }
 
         //TODO: Create SetStatus test
+
+        [TestMethod]
+        public void Login()
+        {
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+
+            LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
+            LoginResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+        
+        [TestMethod]
+        public void Refresh()
+        {
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
+            LoginResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+
+            AuthenticationStore auth = new AuthenticationStore(response);
+
+            RefreshRequest request2 = new RefreshRequest(auth, connection);
+            RefreshResponse response2 = request2.Send();
+            Assert.AreEqual(response2.StatusCode, System.Net.HttpStatusCode.OK);
+        }
 
         //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
     }

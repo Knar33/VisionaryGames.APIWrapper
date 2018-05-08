@@ -7,25 +7,26 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Authentication
 {
-    class LoginRequest
+    public class LoginRequest
     {
-        public LoginRequest(AuthenticationStore auth, APIConnection connection)
+        public LoginRequest(APIConnection connection, string username, string password)
         {
-            Auth = auth;
             Connection = connection;
-            UserID = auth.UserID;
+            Username = username;
+            Password = password;
         }
-
-        public Guid UserID { get; set; }
+        
         public AuthenticationStore Auth { get; set; }
         public APIConnection Connection { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         public LoginResponse Send()
         {
             RestClient client = new RestClient(Connection.URL);
-            RestRequest request = new RestRequest("account/{userID}/ping", Method.POST);
-            request.AddHeader("X-Access-Token", Auth.AccessToken);
-            request.AddUrlSegment("userID", UserID);
+            RestRequest request = new RestRequest("auth/login", Method.POST);
+            request.AddHeader("Username", Username);
+            request.AddHeader("Password", Password);
 
             var res = client.Execute<LoginResponse>(request);
 

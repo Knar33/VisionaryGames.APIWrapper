@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Friends
 {
-    class DeleteFriendRequest
+    public class DeleteFriendRequest
     {
         public DeleteFriendRequest(AuthenticationStore auth, APIConnection connection)
         {

@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Account
 {
-    class PingRequest
+    public class PingRequest
     {
         public PingRequest(AuthenticationStore auth, APIConnection connection)
         {

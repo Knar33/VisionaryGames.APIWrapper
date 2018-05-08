@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Friends
 {
-    class SendFriendRequestRequest
+    public class SendFriendRequestRequest
     {
         public SendFriendRequestRequest(AuthenticationStore auth, APIConnection connection)
         {

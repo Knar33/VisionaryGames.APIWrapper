@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Friends
 {
-    class DeleteFriendResponse
+    public class DeleteFriendResponse
     {
         public DeleteFriendResponse(IRestResponse<DeleteFriendResponse> res)
         {

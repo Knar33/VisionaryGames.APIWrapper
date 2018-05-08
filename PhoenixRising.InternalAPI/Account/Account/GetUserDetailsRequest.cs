@@ -23,7 +23,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public GetUserDetailsResponse Send()
         {
             RestClient client = new RestClient(Connection.URL);
-            RestRequest request = new RestRequest("v1/account/{userID}", Method.GET);
+            RestRequest request = new RestRequest("account/{userID}", Method.GET);
             request.AddHeader("X-Access-Token", Auth.AccessToken);
             request.AddUrlSegment("userID", UserID);
 

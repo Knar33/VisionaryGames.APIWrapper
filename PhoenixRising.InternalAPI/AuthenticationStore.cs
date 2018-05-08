@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PhoenixRising.InternalAPI.Authentication;
 
 namespace PhoenixRising.InternalAPI
 {
@@ -18,6 +19,14 @@ namespace PhoenixRising.InternalAPI
             AccessToken = accessToken;
             ExpireTime = expiresTime;
             RefreshToken = refreshToken;
+        }
+
+        public AuthenticationStore(LoginResponse response)
+        {
+            UserID = new Guid(response.user_id);
+            AccessToken = response.access_token;
+            ExpireTime = Convert.ToInt32(response.expireTime);
+            RefreshToken = response.refresh_token;
         }
 
         public Guid UserID { get; set; }

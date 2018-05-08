@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Account
 {
-    class SetStatusResponse
+    public class SetStatusResponse
     {
         public SetStatusResponse(IRestResponse<SetStatusResponse> res)
         {

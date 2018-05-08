@@ -50,12 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administration\AccountAdmin\BanUserRequest.cs" />
-    <Compile Include="Administration\AccountAdmin\BanUserResponse.cs" />
-    <Compile Include="Administration\AccountAdmin\CreateUserRequest.cs" />
-    <Compile Include="Administration\AccountAdmin\CreateUserResponse.cs" />
-    <Compile Include="Administration\AccountAdmin\ResetPasswordRequest.cs" />
-    <Compile Include="Administration\AccountAdmin\ResetPasswordResponse.cs" />
     <Compile Include="Account\Account\FindRequest.cs" />
     <Compile Include="Account\Account\FindResponse.cs" />
     <Compile Include="Account\Account\GetUserDetailsRequest.cs" />
@@ -81,16 +75,6 @@
     <Compile Include="Account\Friends\UpdateStatusRequest.cs" />
     <Compile Include="Account\Friends\UpdateStatusResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetMinionRequest.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetMinionResponse.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetMinionsRequest.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetMinionsResponse.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetTowerRequest.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetTowerResponse.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetTowersRequest.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetTowersResponse.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetWorldRequest.cs" />
-    <Compile Include="Mechanics\WorldMechanic\GetWorldResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

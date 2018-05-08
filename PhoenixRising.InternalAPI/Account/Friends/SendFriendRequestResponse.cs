@@ -10,6 +10,20 @@ namespace PhoenixRising.InternalAPI.Account.Friends
 {
     class SendFriendRequestResponse
     {
+        public SendFriendRequestResponse(IRestResponse<SendFriendRequestResponse> res)
+        {
+            StatusCode = res.StatusCode;
+            if (res.StatusCode == HttpStatusCode.OK)
+            {
+                Content = res.Content;
+            }
+        }
+
+        public SendFriendRequestResponse()
+        {
+
+        }
+
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
     }

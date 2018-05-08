@@ -13,12 +13,8 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public PingResponse(IRestResponse<PingResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode == HttpStatusCode.OK)
-            {
-                
-            }
-            else
-            {
+            if (res.StatusCode != HttpStatusCode.OK)
+            { 
                 Content = res.Content;
             }
         }

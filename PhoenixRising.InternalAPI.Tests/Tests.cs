@@ -78,6 +78,8 @@ namespace PhoenixRising.InternalAPI.Tests
             Assert.AreEqual(response2.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //TODO: Create friend request tests
+
         //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
     }
 }

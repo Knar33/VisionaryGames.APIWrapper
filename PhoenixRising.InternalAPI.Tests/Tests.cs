@@ -9,6 +9,7 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
+        //TODO: Make these tests actually useful
         [TestMethod]
         public void FindRequest()
         {
@@ -47,5 +48,9 @@ namespace PhoenixRising.InternalAPI.Tests
             GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
             GetUserDetailsResponse response = request.Send();
         }
+
+        //TODO: Create SetStatus test
+
+        //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
     }
 }

@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\SettingsHud\SetCurrentHUDRequest.cs" />
-    <Compile Include="Account\SettingsHud\SetCurrentHUDResponse.cs" />
     <Compile Include="Administration\AccountAdmin\BanUserRequest.cs" />
     <Compile Include="Administration\AccountAdmin\BanUserResponse.cs" />
     <Compile Include="Administration\AccountAdmin\CreateUserRequest.cs" />
@@ -72,8 +70,6 @@
     <Compile Include="Authentication\LoginResponse.cs" />
     <Compile Include="Authentication\RefreshRequest.cs" />
     <Compile Include="Authentication\RefreshResponse.cs" />
-    <Compile Include="Debug\VersionRequest.cs" />
-    <Compile Include="Debug\VersionResponse.cs" />
     <Compile Include="Account\Friends\DeleteFriendRequest.cs" />
     <Compile Include="Account\Friends\DeleteFriendResponse.cs" />
     <Compile Include="Account\Friends\GetFriendsRequest.cs" />
@@ -84,26 +80,6 @@
     <Compile Include="Account\Friends\SendFriendRequestResponse.cs" />
     <Compile Include="Account\Friends\UpdateStatusRequest.cs" />
     <Compile Include="Account\Friends\UpdateStatusResponse.cs" />
-    <Compile Include="Instance\CreateInstanceRequest.cs" />
-    <Compile Include="Instance\CreateInstanceResponse.cs" />
-    <Compile Include="Instance\GetInstanceRequest.cs" />
-    <Compile Include="Instance\GetInstanceResponse.cs" />
-    <Compile Include="Instance\ListInstanceRequest.cs" />
-    <Compile Include="Instance\ListInstanceResponse.cs" />
-    <Compile Include="Instance\RemoveInstanceRequest.cs" />
-    <Compile Include="Instance\RemoveInstanceResponse.cs" />
-    <Compile Include="Launcher\GetBuildsRequest.cs" />
-    <Compile Include="Launcher\GetBuildsResponse.cs" />
-    <Compile Include="Launcher\GetFilesRequest.cs" />
-    <Compile Include="Launcher\GetFilesResponse.cs" />
-    <Compile Include="Account\SettingsHud\GetCurrentHUDRequest.cs" />
-    <Compile Include="Account\SettingsHud\GetCurrentHUDResponse.cs" />
-    <Compile Include="Account\SettingsHud\GetHUDRequest.cs" />
-    <Compile Include="Account\SettingsHud\GetHUDResponse.cs" />
-    <Compile Include="Account\SettingsHud\GetHUDListRequest.cs" />
-    <Compile Include="Account\SettingsHud\GetHUDListResponse.cs" />
-    <Compile Include="Account\SettingsHud\SaveHUDRequest.cs" />
-    <Compile Include="Account\SettingsHud\SaveHUDResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mechanics\WorldMechanic\GetMinionRequest.cs" />
     <Compile Include="Mechanics\WorldMechanic\GetMinionResponse.cs" />
@@ -119,8 +95,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Socket\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

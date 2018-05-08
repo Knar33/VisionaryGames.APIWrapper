@@ -21,17 +21,13 @@ namespace PhoenixRising.InternalAPI.Account.Account
 
         public FindResponse Send()
         {
-            var client = new RestClient(Connection.URL);
-
-            var request = new RestRequest("v1/account/find/{nickname}", Method.GET);
+            RestClient client = new RestClient(Connection.URL);
+            RestRequest request = new RestRequest("v1/account/find/{nickname}", Method.GET);
             request.AddUrlSegment("nickname", Nickname);
-            
-            var res = client.Execute<FindResponse>(request);
-            FindResponse response = res.Data;
-            response.Content = res.Content;
-            response.StatusCode = res.StatusCode;
 
-            return response;
+            var res = client.Execute<FindResponse>(request);
+
+            return new FindResponse(res);
         }
     }
 }

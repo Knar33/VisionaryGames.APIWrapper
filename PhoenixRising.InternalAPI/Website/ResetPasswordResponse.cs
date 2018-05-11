@@ -13,11 +13,7 @@ namespace PhoenixRising.InternalAPI.Website
         public ResetPasswordResponse(IRestResponse<ResetPasswordResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode == HttpStatusCode.OK)
-            {
-                USER_ID = res.Data.USER_ID;
-            }
-            else
+            if (res.StatusCode != HttpStatusCode.OK)
             {
                 Content = res.Content;
             }
@@ -30,7 +26,5 @@ namespace PhoenixRising.InternalAPI.Website
 
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
-
-        public string USER_ID { get; set; }
     }
 }

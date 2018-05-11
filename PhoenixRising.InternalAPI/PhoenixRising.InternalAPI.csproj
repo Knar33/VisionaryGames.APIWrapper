@@ -75,12 +75,16 @@
     <Compile Include="Account\Friends\UpdateStatusRequest.cs" />
     <Compile Include="Account\Friends\UpdateStatusResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Website\CreateUserRequest.cs" />
+    <Compile Include="Website\CreateUserResponse.cs" />
+    <Compile Include="Website\RequestResetPasswordRequest.cs" />
+    <Compile Include="Website\RequestResetPasswordResponse.cs" />
+    <Compile Include="Website\ResetPasswordRequest.cs" />
+    <Compile Include="Website\ResetPasswordResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Website\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

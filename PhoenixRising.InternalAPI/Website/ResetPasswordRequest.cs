@@ -10,20 +10,23 @@ namespace PhoenixRising.InternalAPI.Website
 {
     class ResetPasswordRequest
     {
-        public ResetPasswordRequest(APIConnection connection, string nickname)
+        public ResetPasswordRequest(APIConnection connection, string passwordToken, string password)
         {
             Connection = connection;
-            Nickname = nickname;
+            PasswordToken = passwordToken;
+            Password = password;
         }
 
-        public string Nickname { get; set; }
+        public string PasswordToken { get; set; }
+        public string Password { get; set; }
         public APIConnection Connection { get; set; }
 
         public ResetPasswordResponse Send()
         {
             RestClient client = new RestClient(Connection.URL);
-            RestRequest request = new RestRequest("account/find/{nickname}", Method.GET);
-            request.AddUrlSegment("nickname", Nickname);
+            RestRequest request = new RestRequest("app/account/passwd/{token}", Method.POST);
+            request.AddUrlSegment("token", PasswordToken);
+            request.AddHeader("Password", Password);
 
             var res = client.Execute<ResetPasswordResponse>(request);
 

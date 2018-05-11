@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Azure.KeyVault;
 using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
 using PhoenixRising.InternalAPI.Authentication;
@@ -100,7 +103,22 @@ namespace PhoenixRising.InternalAPI.Tests
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
             string email = "adKnar@comcast.net";
             RequestResetPasswordRequest request = new RequestResetPasswordRequest(connection, email);
-            request.AppAccessToken = "";
+
+            KeyVaultClient KeyVault;
+            try
+            {
+                // Configure keyvault and token
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+                catch (Exception e)
+            {
+                // You need to make sure that you login to azure using the "az login" in powershell. if you have not got the azure command download it here https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            request.AppAccessToken = bundle.Value;
 
             RequestResetPasswordResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);

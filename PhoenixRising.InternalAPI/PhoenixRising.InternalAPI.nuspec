@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Visionary Games</authors>
+    <owners>$author$</owners>
+    <description>Internal API Wrapper</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Internal API</tags>
+  </metadata>
+</package>

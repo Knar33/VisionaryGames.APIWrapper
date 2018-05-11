@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
 using PhoenixRising.InternalAPI.Authentication;
+using PhoenixRising.InternalAPI.Website;
 
 namespace PhoenixRising.InternalAPI.Tests
 {
@@ -77,7 +78,45 @@ namespace PhoenixRising.InternalAPI.Tests
             RefreshResponse response2 = request2.Send();
             Assert.AreEqual(response2.StatusCode, System.Net.HttpStatusCode.OK);
         }
+        
+        [TestMethod]
+        public void CreateUser()
+        {
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            CreateUserRequest request = new CreateUserRequest(connection);
+            request.Email = "Knar";
+            request.FirstName = "George";
+            request.LastName = "Washington";
+            request.Nicknane = "CherryTreeBoi";
+            request.AppAccessToken = "";
 
+            CreateUserResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void ForgotPasswordRequest()
+        {
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            string email = "adKnar@comcast.net";
+            RequestResetPasswordRequest request = new RequestResetPasswordRequest(connection, email);
+            request.AppAccessToken = "";
+
+            RequestResetPasswordResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void ResetPassword()
+        {
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            string passwordToken = "";
+            string password = "newPass";
+            ResetPasswordRequest request = new ResetPasswordRequest(connection, passwordToken, password);
+
+            ResetPasswordResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
         //TODO: Create friend request tests
 
         //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected

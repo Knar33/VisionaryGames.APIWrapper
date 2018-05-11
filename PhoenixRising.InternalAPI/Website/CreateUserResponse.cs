@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Website
 {
-    class CreateUserResponse
+    public class CreateUserResponse
     {
         public CreateUserResponse(IRestResponse<CreateUserResponse> res)
         {

@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Website
 {
-    class RequestResetPasswordRequest
+    public class RequestResetPasswordRequest
     {
         public RequestResetPasswordRequest(APIConnection connection, string email)
         {
@@ -17,6 +17,7 @@ namespace PhoenixRising.InternalAPI.Website
         }
 
         public string Email { get; set; }
+        public string AppAccessToken { get; set; }
         public APIConnection Connection { get; set; }
 
         public RequestResetPasswordResponse Send()
@@ -24,6 +25,7 @@ namespace PhoenixRising.InternalAPI.Website
             RestClient client = new RestClient(Connection.URL);
             RestRequest request = new RestRequest("/app/account/passwd", Method.POST);
             request.AddHeader("userEmail", Email);
+            request.AddHeader("App-Access-Token", AppAccessToken);
 
             var res = client.Execute<RequestResetPasswordResponse>(request);
 

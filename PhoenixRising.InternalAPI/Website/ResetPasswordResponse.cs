@@ -8,7 +8,7 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Website
 {
-    class ResetPasswordResponse
+    public class ResetPasswordResponse
     {
         public ResetPasswordResponse(IRestResponse<ResetPasswordResponse> res)
         {

@@ -91,7 +91,22 @@ namespace PhoenixRising.InternalAPI.Tests
             request.FirstName = "George";
             request.LastName = "Washington";
             request.Nicknane = "CherryTreeBoi";
-            request.AppAccessToken = "";
+
+            KeyVaultClient KeyVault;
+            try
+            {
+                // Configure keyvault and token
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                // You need to make sure that you login to azure using the "az login" in powershell. if you have not got the azure command download it here https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            request.AppAccessToken = bundle.Value;
 
             CreateUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -138,5 +153,7 @@ namespace PhoenixRising.InternalAPI.Tests
         //TODO: Create friend request tests
 
         //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
+
+        //Create test for reset password
     }
 }

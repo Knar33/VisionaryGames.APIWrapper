@@ -20,8 +20,10 @@ namespace PhoenixRising.InternalAPI.Tests
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
-            FindRequest request = new FindRequest(connection, "linternatora");
+            FindRequest request = new FindRequest(connection, "linternator");
             FindResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -37,6 +39,8 @@ namespace PhoenixRising.InternalAPI.Tests
 
             GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
             GetUserDetailsResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -52,9 +56,26 @@ namespace PhoenixRising.InternalAPI.Tests
 
             GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
             GetUserDetailsResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
-        //TODO: Create SetStatus test
+        [TestMethod]
+        public void SetStatus()
+        {
+            Guid user = new Guid("66e0db28-3fd9-6653-56dc-f02aaa393ab3");
+            string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNjE4MzM3NiwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.MkjbCQfonE33tCjxjYqheYkm3-he3Ow7YL0kaaGgUMw";
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
+
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+
+            SetStatusRequest request = new SetStatusRequest(auth, connection, OnlineStatus.OFFLINE, GameStatus.INLOBBY);
+            SetStatusResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
 
         [TestMethod]
         public void Login()
@@ -95,14 +116,12 @@ namespace PhoenixRising.InternalAPI.Tests
             KeyVaultClient KeyVault;
             try
             {
-                // Configure keyvault and token
                 var azureServiceTokenProvider = new AzureServiceTokenProvider();
                 var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
                 KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
             }
             catch (Exception e)
             {
-                // You need to make sure that you login to azure using the "az login" in powershell. if you have not got the azure command download it here https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
                 throw e;
             }
             var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
@@ -122,14 +141,12 @@ namespace PhoenixRising.InternalAPI.Tests
             KeyVaultClient KeyVault;
             try
             {
-                // Configure keyvault and token
                 var azureServiceTokenProvider = new AzureServiceTokenProvider();
                 var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
                 KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
             }
                 catch (Exception e)
             {
-                // You need to make sure that you login to azure using the "az login" in powershell. if you have not got the azure command download it here https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
                 throw e;
             }
             var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;

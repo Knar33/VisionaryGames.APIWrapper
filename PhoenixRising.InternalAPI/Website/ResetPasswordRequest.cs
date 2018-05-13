@@ -20,12 +20,14 @@ namespace PhoenixRising.InternalAPI.Website
         public string PasswordToken { get; set; }
         public string Password { get; set; }
         public APIConnection Connection { get; set; }
+        public string AppAccessToken { get; set; }
 
         public ResetPasswordResponse Send()
         {
             RestClient client = new RestClient(Connection.URL);
             RestRequest request = new RestRequest("app/account/passwd/{token}", Method.POST);
             request.AddUrlSegment("token", PasswordToken);
+            request.AddHeader("App-Access-Token", AppAccessToken);
             request.AddHeader("Password", Password);
 
             var res = client.Execute<ResetPasswordResponse>(request);

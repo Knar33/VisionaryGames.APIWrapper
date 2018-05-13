@@ -150,10 +150,13 @@ namespace PhoenixRising.InternalAPI.Tests
             ResetPasswordResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
+
+        //TODO: Create Update Info
+
         //TODO: Create friend request tests
 
         //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
 
-        //Create test for reset password
+        //TODO: Create test for reset password
     }
 }

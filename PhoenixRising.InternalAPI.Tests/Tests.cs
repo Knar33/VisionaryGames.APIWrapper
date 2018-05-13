@@ -14,7 +14,7 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNjE4MzM3NiwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.MkjbCQfonE33tCjxjYqheYkm3-he3Ow7YL0kaaGgUMw";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNjE5MTMyNywiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.PiIlnSv6kDGMRQjdtGYX8nWdrD6QFt9bXPlUMBUzK-s";
         public Guid testUser = new Guid("66e0db28-3fd9-6653-56dc-f02aaa393ab3");
 
         [TestMethod]
@@ -22,11 +22,11 @@ namespace PhoenixRising.InternalAPI.Tests
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
-            FindRequest request = new FindRequest(connection, "CherryTreeBoi");
+            FindRequest request = new FindRequest(connection, "fairyboi69");
             FindResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
-            Assert.AreEqual(response.USER_ID, "0e3411ab-a4d4-4fe4-6eca-bbc9c507208c");
+            Assert.AreEqual(response.USER_ID, "e3f37862-5961-4fb3-8b0c-7a6853881224");
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace PhoenixRising.InternalAPI.Tests
         public void Refresh()
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            LoginRequest request = new LoginRequest(connection, "Knar.Knar@Knar.com", "test");
+            LoginRequest request = new LoginRequest(connection, "knarrr@gmail.com", "test");
             LoginResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
 
@@ -111,10 +111,10 @@ namespace PhoenixRising.InternalAPI.Tests
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
             CreateUserRequest request = new CreateUserRequest(connection);
-            request.Email = "Knar.Knar@Knar.com";
-            request.FirstName = "George";
-            request.LastName = "Washington";
-            request.Nicknane = "CherryTreeBoi";
+            request.Email = "knarrr@gmail.com";
+            request.FirstName = "timmy";
+            request.LastName = "turner";
+            request.Nicknane = "fairyboi69";
 
             KeyVaultClient KeyVault;
             try
@@ -138,7 +138,7 @@ namespace PhoenixRising.InternalAPI.Tests
         public void ForgotPasswordRequest()
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            string email = "adKnar@comcast.net";
+            string email = "knarrr@gmail.com";
             RequestResetPasswordRequest request = new RequestResetPasswordRequest(connection, email);
 
             KeyVaultClient KeyVault;
@@ -163,20 +163,30 @@ namespace PhoenixRising.InternalAPI.Tests
         public void ResetPassword()
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            string passwordToken = "amaWgPR5LrqzwkVrmQeb4QDXt3d0QkGybPvOgIEK0A49w2lgoc";
+            string passwordToken = "EuDRefC8gTanqYUqycFp71MVW6UVNtoqA9m68oKtasq5djWeEf";
             string password = "newPass";
             ResetPasswordRequest request = new ResetPasswordRequest(connection, passwordToken, password);
+
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            request.AppAccessToken = bundle.Value;
 
             ResetPasswordResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
-        //TODO: Create Update Info
+        //TODO: Create Update Info endpoint methods/tests
 
         //TODO: Create friend request tests
-
-        //TODO: Create series of Account tests. Log into two account, send requests back and forth, make sure responses are as expected
-
-        //TODO: Create test for reset password
     }
 }

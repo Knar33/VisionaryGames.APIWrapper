@@ -29,7 +29,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
         {
             RestClient client = new RestClient(Connection.URL);
             RestRequest request = new RestRequest("account/{userID}", Method.POST);
-            request.AddUrlSegment("userID", UserID);
+            request.AddUrlSegment("userID", Auth.UserID);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane, USER_PASS = Password });
             request.AddHeader("X-Access-Token", Auth.AccessToken);

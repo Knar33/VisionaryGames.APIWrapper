@@ -228,8 +228,6 @@ namespace PhoenixRising.InternalAPI.Tests
 
         //TODO: make sure all requests/responses match the api doc
 
-        //TODO: Always return content on response objects
-
         //TODO: parse object straight into Data instead of copying values across?
     }
 }

@@ -13,6 +13,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public GetUserDetailsResponse(IRestResponse<GetUserDetailsResponse> res)
         {
             StatusCode = res.StatusCode;
+            Content = res.Content;
             if (res.StatusCode == HttpStatusCode.OK)
             {
                 NICKNAME = res.Data.NICKNAME;
@@ -31,10 +32,6 @@ namespace PhoenixRising.InternalAPI.Account.Account
                     Administrator = res.Data.PERMISSIONS.Administrator,
                     Banned = res.Data.PERMISSIONS.Banned
                 };
-            }
-            else
-            {
-                Content = res.Content;
             }
         }
 

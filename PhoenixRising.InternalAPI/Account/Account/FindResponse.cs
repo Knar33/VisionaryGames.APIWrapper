@@ -13,13 +13,10 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public FindResponse(IRestResponse<FindResponse> res)
         {
             StatusCode = res.StatusCode;
+            Content = res.Content;
             if (res.StatusCode == HttpStatusCode.OK)
             {
                 USER_ID = res.Data.USER_ID;
-            }
-            else
-            {
-                Content = res.Content;
             }
         }
 

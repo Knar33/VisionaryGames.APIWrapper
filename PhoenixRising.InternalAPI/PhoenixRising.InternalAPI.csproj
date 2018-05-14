@@ -81,6 +81,8 @@
     <Compile Include="Account\Account\PingResponse.cs" />
     <Compile Include="Account\Account\SetStatusRequest.cs" />
     <Compile Include="Account\Account\SetStatusResponse.cs" />
+    <Compile Include="Administration\AccountAdmin\UpdateUserPermissionsRequest.cs" />
+    <Compile Include="Administration\AccountAdmin\UpdateUserPermissionsResponse.cs" />
     <Compile Include="APIConnection.cs" />
     <Compile Include="AuthenticationStore.cs" />
     <Compile Include="Authentication\LoginRequest.cs" />

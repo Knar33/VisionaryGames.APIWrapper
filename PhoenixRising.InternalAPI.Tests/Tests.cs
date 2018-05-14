@@ -8,14 +8,15 @@ using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
 using PhoenixRising.InternalAPI.Authentication;
 using PhoenixRising.InternalAPI.Website;
+using PhoenixRising.InternalAPI.Administration.AccountAdmin;
 
 namespace PhoenixRising.InternalAPI.Tests
 {
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijg4YWZlMTc4LTBhODQtNGRmNy1iNDg4LTNmYmE5NGE2MzEyNiIsImV4cCI6MTUyNjI3NDI2MiwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.yrWv7xIqwG7-b7p9P-yKIJC9aPwM101rMuxVej4BgT8";
-        public Guid testUser = new Guid("88afe178-0a84-4df7-b488-3fba94a63126");
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM3ODMxNWE3LWY1YzQtNDQ2NS1iMTRkLTg5OTM5MDY5YzUzNCIsImV4cCI6MTUyNjI3NTIyNywiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.QmXLRRdlfQhD_JEN9kvrN8zkTTEdY-1bYBuQsRBj_fU";
+        public Guid testUser = new Guid("378315a7-f5c4-4465-b14d-89939069c534");
 
         [TestMethod]
         public void FindRequest()
@@ -206,12 +207,29 @@ namespace PhoenixRising.InternalAPI.Tests
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
-        //TODO: create Change Account Permissions methods/tests
+        [TestMethod]
+        public void UpdateUserPermissions()
+        {
+            Guid user = testUser;
+            string accessToken = testToken;
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
+
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            UpdateUserPermissionsRequest request = new UpdateUserPermissionsRequest(connection, auth);
+            request.Administrator = 0;
+            request.Banned = 0;
+            request.Developer = 0;
+
+            UpdateUserPermissionsResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        //TODO: make sure all requests/responses match the api doc
 
         //TODO: Always return content on response objects
 
-        //TODO: parse object straight into Data instead of copying values across
-
-        //TODO: make sure all requests/responses match the api doc
+        //TODO: parse object straight into Data instead of copying values across?
     }
 }

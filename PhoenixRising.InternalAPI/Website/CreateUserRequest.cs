@@ -21,13 +21,14 @@ namespace PhoenixRising.InternalAPI.Website
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Nicknane { get; set; }
+        public string Password { get; set; }
 
         public CreateUserResponse Send()
         {
             RestClient client = new RestClient(Connection.URL);
             RestRequest request = new RestRequest("app/account", Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane });
+            request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane, USER_PASS = Password });
             request.AddHeader("App-Access-Token", AppAccessToken);
 
             var res = client.Execute<CreateUserResponse>(request);

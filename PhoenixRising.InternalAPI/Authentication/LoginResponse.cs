@@ -13,16 +13,13 @@ namespace PhoenixRising.InternalAPI.Authentication
         public LoginResponse(IRestResponse<LoginResponse> res)
         {
             StatusCode = res.StatusCode;
+            Content = res.Content;
             if (res.StatusCode == HttpStatusCode.OK)
             {
                 user_id = res.Data.user_id;
                 access_token = res.Data.access_token;
                 expireTime = res.Data.expireTime;
                 refresh_token = res.Data.refresh_token;
-            }
-            else
-            {
-                Content = res.Content;
             }
         }
 

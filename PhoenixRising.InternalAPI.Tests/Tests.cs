@@ -14,8 +14,8 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU2NDhiOGU2LTgxNDQtNDI5NS1hMzJmLTQ1M2UzZjgxOTRjYSIsImV4cCI6MTUyNjI3MDMwNCwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.4dydL2-KWgbBWfN5WeQh4vKHRROJCSqgcVJC-aTkB5s";
-        public Guid testUser = new Guid("5648b8e6-8144-4295-a32f-453e3f8194ca");
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijg4YWZlMTc4LTBhODQtNGRmNy1iNDg4LTNmYmE5NGE2MzEyNiIsImV4cCI6MTUyNjI3NDI2MiwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.yrWv7xIqwG7-b7p9P-yKIJC9aPwM101rMuxVej4BgT8";
+        public Guid testUser = new Guid("88afe178-0a84-4df7-b488-3fba94a63126");
 
         [TestMethod]
         public void FindRequest()
@@ -85,7 +85,7 @@ namespace PhoenixRising.InternalAPI.Tests
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
-            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "newPass");
+            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "Password1!");
             LoginResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -201,18 +201,17 @@ namespace PhoenixRising.InternalAPI.Tests
             request.LastName = "Lhe";
             request.Nicknane = "Knar66";
             request.Password = "Password1!";
-            request.UserID = testUser;
 
             EditUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
-        //TODO: parse userID response string from create user
-
         //TODO: create Change Account Permissions methods/tests
 
         //TODO: Always return content on response objects
 
-        //TODO: parse object straight into Data
+        //TODO: parse object straight into Data instead of copying values across
+
+        //TODO: make sure all requests/responses match the api doc
     }
 }

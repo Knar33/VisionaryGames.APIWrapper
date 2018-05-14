@@ -13,10 +13,7 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
         public UpdateUserPermissionsResponse(IRestResponse<UpdateUserPermissionsResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode != HttpStatusCode.OK)
-            {
-                Content = res.Content;
-            }
+            Content = res.Content;
         }
 
         public UpdateUserPermissionsResponse()

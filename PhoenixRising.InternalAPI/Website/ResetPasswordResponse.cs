@@ -13,10 +13,7 @@ namespace PhoenixRising.InternalAPI.Website
         public ResetPasswordResponse(IRestResponse<ResetPasswordResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode != HttpStatusCode.OK)
-            {
-                Content = res.Content;
-            }
+            Content = res.Content;
         }
 
         public ResetPasswordResponse()

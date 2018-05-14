@@ -13,13 +13,10 @@ namespace PhoenixRising.InternalAPI.Website
         public CreateUserResponse(IRestResponse<CreateUserResponse> res)
         {
             StatusCode = res.StatusCode;
+            Content = res.Content;
             if (res.StatusCode == HttpStatusCode.OK)
             {
                 USER_ID = res.Data.USER_ID;
-            }
-            else
-            {
-                Content = res.Content;
             }
         }
 

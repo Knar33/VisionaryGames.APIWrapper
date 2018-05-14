@@ -13,10 +13,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public EditUserResponse(IRestResponse<EditUserResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode != HttpStatusCode.OK)
-            {
-                Content = res.Content;
-            }
+            Content = res.Content;
         }
 
         public EditUserResponse()

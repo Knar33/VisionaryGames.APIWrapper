@@ -14,7 +14,7 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU2NDhiOGU2LTgxNDQtNDI5NS1hMzJmLTQ1M2UzZjgxOTRjYSIsImV4cCI6MTUyNjI2NDQxOSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.8zB7LTJa_ybnwpriF0XI-3232LzmoL2Xqn3KmhvPeF4";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU2NDhiOGU2LTgxNDQtNDI5NS1hMzJmLTQ1M2UzZjgxOTRjYSIsImV4cCI6MTUyNjI3MDMwNCwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.4dydL2-KWgbBWfN5WeQh4vKHRROJCSqgcVJC-aTkB5s";
         public Guid testUser = new Guid("5648b8e6-8144-4295-a32f-453e3f8194ca");
 
         [TestMethod]
@@ -186,12 +186,33 @@ namespace PhoenixRising.InternalAPI.Tests
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
-        //TODO: parse userID response string from create user
+        [TestMethod]
+        public void EditUser()
+        {
+            Guid user = testUser;
+            string accessToken = testToken;
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
 
-        //TODO: Create Update Info endpoint methods/tests
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            EditUserRequest request = new EditUserRequest(connection, auth);
+            request.FirstName = "Knar2";
+            request.LastName = "Lhe";
+            request.Nicknane = "Knar66";
+            request.Password = "Password1!";
+            request.UserID = testUser;
+
+            EditUserResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        //TODO: parse userID response string from create user
 
         //TODO: create Change Account Permissions methods/tests
 
-        //TODO: Create friend request tests
+        //TODO: Always return content on response objects
+
+        //TODO: parse object straight into Data
     }
 }

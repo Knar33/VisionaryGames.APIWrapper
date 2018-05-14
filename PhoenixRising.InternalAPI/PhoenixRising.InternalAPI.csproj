@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Account\EditUserRequest.cs" />
+    <Compile Include="Account\Account\EditUserResponse.cs" />
     <Compile Include="Account\Account\FindRequest.cs" />
     <Compile Include="Account\Account\FindResponse.cs" />
     <Compile Include="Account\Account\GetUserDetailsRequest.cs" />

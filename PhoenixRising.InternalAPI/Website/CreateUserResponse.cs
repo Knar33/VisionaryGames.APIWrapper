@@ -13,7 +13,11 @@ namespace PhoenixRising.InternalAPI.Website
         public CreateUserResponse(IRestResponse<CreateUserResponse> res)
         {
             StatusCode = res.StatusCode;
-            if (res.StatusCode != HttpStatusCode.OK)
+            if (res.StatusCode == HttpStatusCode.OK)
+            {
+                USER_ID = res.Data.USER_ID;
+            }
+            else
             {
                 Content = res.Content;
             }
@@ -24,6 +28,7 @@ namespace PhoenixRising.InternalAPI.Website
 
         }
 
+        public Guid USER_ID { get; set; }
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
     }

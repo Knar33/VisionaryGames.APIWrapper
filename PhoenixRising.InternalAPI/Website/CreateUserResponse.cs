@@ -6,30 +6,27 @@ using System.Threading.Tasks;
 using System.Net;
 using RestSharp;
 
-namespace PhoenixRising.InternalAPI.Authentication
+namespace PhoenixRising.InternalAPI.Website
 {
-    public class RefreshResponse
+    public class CreateUserResponse
     {
-        public RefreshResponse(IRestResponse<RefreshResponse> res)
+        public CreateUserResponse(IRestResponse<CreateUserResponse> res)
         {
             StatusCode = res.StatusCode;
             Content = res.Content;
             if (res.StatusCode == HttpStatusCode.OK)
             {
-                access_token = res.Data.access_token;
-                expireTime = res.Data.expireTime;
+                USER_ID = res.Data.USER_ID;
             }
         }
 
-        public RefreshResponse()
+        public CreateUserResponse()
         {
 
         }
 
+        public Guid USER_ID { get; set; }
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
-        
-        public string access_token { get; set; }
-        public string expireTime { get; set; }
     }
 }

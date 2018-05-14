@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 using System.Net;
 using RestSharp;
 
-namespace PhoenixRising.InternalAPI.Account.Account
+namespace PhoenixRising.InternalAPI.Website
 {
-    public class PingResponse
+    public class RequestResetPasswordResponse
     {
-        public PingResponse(IRestResponse<PingResponse> res)
+        public RequestResetPasswordResponse(IRestResponse<RequestResetPasswordResponse> res)
         {
             StatusCode = res.StatusCode;
             Content = res.Content;
         }
 
-        public PingResponse()
+        public RequestResetPasswordResponse()
         {
 
         }

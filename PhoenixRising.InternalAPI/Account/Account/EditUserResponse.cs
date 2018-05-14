@@ -8,15 +8,15 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Account.Account
 {
-    public class PingResponse
+    public class EditUserResponse
     {
-        public PingResponse(IRestResponse<PingResponse> res)
+        public EditUserResponse(IRestResponse<EditUserResponse> res)
         {
             StatusCode = res.StatusCode;
             Content = res.Content;
         }
 
-        public PingResponse()
+        public EditUserResponse()
         {
 
         }

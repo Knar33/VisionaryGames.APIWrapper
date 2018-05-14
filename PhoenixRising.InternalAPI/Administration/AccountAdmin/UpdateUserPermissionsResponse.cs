@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 using System.Net;
 using RestSharp;
 
-namespace PhoenixRising.InternalAPI.Account.Account
+namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
 {
-    public class PingResponse
+    public class UpdateUserPermissionsResponse
     {
-        public PingResponse(IRestResponse<PingResponse> res)
+        public UpdateUserPermissionsResponse(IRestResponse<UpdateUserPermissionsResponse> res)
         {
             StatusCode = res.StatusCode;
             Content = res.Content;
         }
 
-        public PingResponse()
+        public UpdateUserPermissionsResponse()
         {
 
         }

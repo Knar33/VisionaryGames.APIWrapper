@@ -20,6 +20,7 @@ namespace PhoenixRising.InternalAPI.Authentication
                 access_token = res.Data.access_token;
                 expireTime = res.Data.expireTime;
                 refresh_token = res.Data.refresh_token;
+                user_nick = res.Data.user_nick;
             }
         }
 
@@ -35,5 +36,6 @@ namespace PhoenixRising.InternalAPI.Authentication
         public string access_token { get; set; }
         public string expireTime { get; set; }
         public string refresh_token { get; set; }
+        public string user_nick { get; set; }
     }
 }

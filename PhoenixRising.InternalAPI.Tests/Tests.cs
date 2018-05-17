@@ -15,8 +15,8 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM3ODMxNWE3LWY1YzQtNDQ2NS1iMTRkLTg5OTM5MDY5YzUzNCIsImV4cCI6MTUyNjI3NTIyNywiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.QmXLRRdlfQhD_JEN9kvrN8zkTTEdY-1bYBuQsRBj_fU";
-        public Guid testUser = new Guid("378315a7-f5c4-4465-b14d-89939069c534");
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjQ3Nzg0NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.7B1KgXoA4Hps4DjPXl2m7TFYEfCi6tWhE11DtHHVNes";
+        public Guid testUser = new Guid("6d9d9295-b538-47e4-b213-e039658a8e8b");
 
         [TestMethod]
         public void FindRequest()
@@ -86,7 +86,7 @@ namespace PhoenixRising.InternalAPI.Tests
         {
             APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
 
-            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "Password1!");
+            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "password");
             LoginResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);

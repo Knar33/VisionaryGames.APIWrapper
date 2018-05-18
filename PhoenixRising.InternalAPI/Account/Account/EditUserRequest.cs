@@ -23,7 +23,6 @@ namespace PhoenixRising.InternalAPI.Account.Account
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Nicknane { get; set; }
-        public string Password { get; set; }
 
         public EditUserResponse Send()
         {
@@ -31,7 +30,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
             RestRequest request = new RestRequest("account/{userID}", Method.POST);
             request.AddUrlSegment("userID", Auth.UserID);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane, USER_PASS = Password });
+            request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane });
             request.AddHeader("X-Access-Token", Auth.AccessToken);
 
             var res = client.Execute<EditUserResponse>(request);

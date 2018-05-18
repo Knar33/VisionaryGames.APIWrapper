@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Account\ChangePasswordRequest.cs" />
+    <Compile Include="Account\Account\ChangePasswordResponse.cs" />
     <Compile Include="Account\Account\EditUserRequest.cs" />
     <Compile Include="Account\Account\EditUserResponse.cs" />
     <Compile Include="Account\Account\FindRequest.cs" />
@@ -96,6 +98,8 @@
     <Compile Include="Website\RequestResetPasswordResponse.cs" />
     <Compile Include="Website\ResetPasswordRequest.cs" />
     <Compile Include="Website\ResetPasswordResponse.cs" />
+    <Compile Include="Website\VerifyUserRequest.cs" />
+    <Compile Include="Website\VerifyUserResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

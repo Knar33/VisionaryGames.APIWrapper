@@ -15,33 +15,24 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjYxMTk5MywiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.7JbRC2JGUwUg3Ugi3DHiTr00_kW5hNdlT_4nTao5h6Y";
+        string connection = "https://pr-api-uks-dev.azurewebsites.net/v1";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjYxNDQ2MCwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.yBOANXlQC2ATUHwZEr0UgbeCyMG1yM2sD9G3t3YCi_I";
         public Guid testUser = new Guid("6d9d9295-b538-47e4-b213-e039658a8e8b");
 
         [TestMethod]
         public void FindRequest()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-
             FindRequest request = new FindRequest(connection, "Knar66");
             FindResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
-            Assert.AreEqual(response.USER_ID, "5648b8e6-8144-4295-a32f-453e3f8194ca");
+            Assert.AreEqual(response.USER_ID, "6d9d9295-b538-47e4-b213-e039658a8e8b");
         }
 
         [TestMethod]
         public void GetUserDetails()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-
-            GetUserDetailsRequest request = new GetUserDetailsRequest(auth, connection);
+            GetUserDetailsRequest request = new GetUserDetailsRequest(connection, testToken, testUser);
             GetUserDetailsResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -50,43 +41,29 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void Ping()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-
-            PingRequest request = new PingRequest(auth, connection);
+            PingRequest request = new PingRequest(connection, testToken, testUser);
             PingResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //Must actually
         [TestMethod]
         public void SetStatus()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-
-            SetStatusRequest request = new SetStatusRequest(auth, connection, OnlineStatus.OFFLINE, GameStatus.INLOBBY);
+            SetStatusRequest request = new SetStatusRequest(connection, testToken, testUser, OnlineStatus.OFFLINE, GameStatus.INLOBBY);
             SetStatusResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //must not be able to log into newly registered account without first verifying
+        //must not be able to log into account whose password changed using the new email, without first verifying
+        //must be able to log in using the old email after changing, until verifying new email
         [TestMethod]
         public void Login()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-
-            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "password");
+            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "Password1!");
             LoginResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -95,27 +72,24 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void Refresh()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
             LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
             LoginResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
-
-            AuthenticationStore auth = new AuthenticationStore(response);
-
-            RefreshRequest request2 = new RefreshRequest(auth, connection);
+            
+            RefreshRequest request2 = new RefreshRequest(connection, response.refresh_token);
             RefreshResponse response2 = request2.Send();
             Assert.AreEqual(response2.StatusCode, System.Net.HttpStatusCode.OK);
         }
         
+        //must not be able to create the same email or nickname as an existing
         [TestMethod]
         public void CreateUser()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            CreateUserRequest request = new CreateUserRequest(connection);
+            CreateUserRequest request = new CreateUserRequest(connection, testToken);
             request.Email = "adKnar@comcast.net";
             request.FirstName = "Knar";
             request.LastName = "Lhe";
-            request.Nicknane = "Knar66";
+            request.Nicknane = "Knar666";
             request.Password = "Password1!";
 
             KeyVaultClient KeyVault;
@@ -139,9 +113,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void ForgotPasswordRequest()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            string email = "adKnar@comcast.net";
-            RequestResetPasswordRequest request = new RequestResetPasswordRequest(connection, email);
+            RequestResetPasswordRequest request = new RequestResetPasswordRequest(connection, testToken, "knarrr@gmail.com");
 
             KeyVaultClient KeyVault;
             try
@@ -161,13 +133,12 @@ namespace PhoenixRising.InternalAPI.Tests
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //old password must be valid until new one is set
         [TestMethod]
         public void ResetPassword()
         {
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            string passwordToken = "TAQXLRouHTIMhcKdq9BoB27QnCWGfzMRNVXB4uWn8t0Rkoawhn";
+            string passwordToken = "qefh2FdMZAgMg0g7dcqbmUn8XOaTEJYFop3D1V7cSMX2J1LeXZ";
             string password = "newPass";
-            ResetPasswordRequest request = new ResetPasswordRequest(connection, passwordToken, password);
 
             KeyVaultClient KeyVault;
             try
@@ -181,23 +152,19 @@ namespace PhoenixRising.InternalAPI.Tests
                 throw e;
             }
             var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
-            request.AppAccessToken = bundle.Value;
-
+            string appAccessToken = bundle.Value;
+            ResetPasswordRequest request = new ResetPasswordRequest(connection, appAccessToken, passwordToken, password);
+            
             ResetPasswordResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //must be able to send 1 of these values alone
+        //must be able to send email along with other parameters, and get change verification email
         [TestMethod]
         public void EditUser()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            EditUserRequest request = new EditUserRequest(connection, auth);
+            EditUserRequest request = new EditUserRequest(connection, testToken, testUser);
             request.FirstName = "Knar2";
             request.LastName = "Lhe";
             request.Nicknane = "Knar66";
@@ -209,14 +176,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void UpdateUserPermissions()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            UpdateUserPermissionsRequest request = new UpdateUserPermissionsRequest(connection, auth);
+            UpdateUserPermissionsRequest request = new UpdateUserPermissionsRequest(connection, testToken, testUser);
             request.Administrator = 0;
             request.Banned = 0;
             request.Developer = 0;
@@ -228,33 +188,20 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void ChangePassword()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            ChangePasswordRequest request = new ChangePasswordRequest(connection, auth);
-            request.OldPassword = "passy";
-            request.NewPassword = "password";
+            string oldPassword = "password";
+            string newPassword = "passy";
+            ChangePasswordRequest request = new ChangePasswordRequest(connection, testToken, testUser, oldPassword, newPassword);
 
             ChangePasswordResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
+        //must send email
         [TestMethod]
         public void ChangeEmail()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            EditUserRequest request = new EditUserRequest(connection, auth);
-            request.Email = "knarrr@gmail.com";
+            EditUserRequest request = new EditUserRequest(connection, testToken, testUser);
+            request.Email = "adKnar@comcast.net";
 
             EditUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -263,14 +210,6 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void VerifyUser()
         {
-            Guid user = testUser;
-            string accessToken = testToken;
-            int expiresTime = 12345678;
-            string refreshToken = "refreshtokenhere";
-            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
-
-            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
-            VerifyUserRequest request = new VerifyUserRequest(connection, auth);
             KeyVaultClient KeyVault;
             try
             {
@@ -283,9 +222,11 @@ namespace PhoenixRising.InternalAPI.Tests
                 throw e;
             }
             var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
-            request.AppAccessToken = bundle.Value;
+            string appAccessToken = bundle.Value;
 
-            request.Token = "qVKgZLaoxJJrBEmf62M782AvhZQngSNurdou13larPQBeu9isN";
+            string resetToken = "ThClkDquzDXMLQ1tVJvpUCkBxg2RQOG0ilNuu6BZj4IKI0sCam";
+            VerifyUserRequest request = new VerifyUserRequest(connection, appAccessToken, resetToken);
+
 
             VerifyUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);

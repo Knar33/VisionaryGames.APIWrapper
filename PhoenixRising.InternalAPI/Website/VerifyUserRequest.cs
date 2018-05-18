@@ -9,22 +9,22 @@ namespace PhoenixRising.InternalAPI.Website
 {
     public class VerifyUserRequest
     {
-        public VerifyUserRequest(APIConnection connection, AuthenticationStore auth)
+        public VerifyUserRequest(string connection, string appAccessToken, string resetToken)
         {
             Connection = connection;
-            Auth = auth;
+            AppAccessToken = appAccessToken;
+            ResetToken = resetToken;
         }
-
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
-        public string Token { get; set; }
+        
+        public string Connection { get; set; }
+        public string ResetToken { get; set; }
         public string AppAccessToken { get; set; }
 
         public VerifyUserResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("app/account/verify/{token}", Method.POST);
-            request.AddUrlSegment("token", Token);
+            request.AddUrlSegment("token", ResetToken);
             request.AddHeader("App-Access-Token", AppAccessToken);
 
             var res = client.Execute<VerifyUserResponse>(request);

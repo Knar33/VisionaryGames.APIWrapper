@@ -9,14 +9,15 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
 {
     public class UpdateUserPermissionsRequest
     {
-        public UpdateUserPermissionsRequest(APIConnection connection, AuthenticationStore auth)
+        public UpdateUserPermissionsRequest(string connection, string accessToken, Guid userID)
         {
             Connection = connection;
-            Auth = auth;
+            AccessToken = accessToken;
+            UserID = userID;
         }
 
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
+        public string Connection { get; set; }
+        public string AccessToken { get; set; }
         public Guid UserID { get; set; }
         public int Developer { get; set; }
         public int Administrator { get; set; }
@@ -24,12 +25,12 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
 
         public UpdateUserPermissionsResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("account/{userID}", Method.POST);
-            request.AddUrlSegment("userID", Auth.UserID);
+            request.AddUrlSegment("userID", UserID);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new { Developer = Developer, Administrator = Administrator, Banned = Banned});
-            request.AddHeader("X-Access-Token", Auth.AccessToken);
+            request.AddHeader("X-Access-Token", AccessToken);
 
             var res = client.Execute<UpdateUserPermissionsResponse>(request);
 

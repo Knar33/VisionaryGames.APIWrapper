@@ -10,12 +10,13 @@ namespace PhoenixRising.InternalAPI.Website
 {
     public class CreateUserRequest
     {
-        public CreateUserRequest(APIConnection connection)
+        public CreateUserRequest(string connection, string appAccessToken)
         {
             Connection = connection;
+            AppAccessToken = appAccessToken;
         }
         
-        public APIConnection Connection { get; set; }
+        public string Connection { get; set; }
         public string AppAccessToken { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -25,7 +26,7 @@ namespace PhoenixRising.InternalAPI.Website
 
         public CreateUserResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("app/account", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new { USER_FNAME = FirstName, USER_LNAME = LastName, USER_EMAIL = Email, USER_NICK = Nicknane, USER_PASS = Password });

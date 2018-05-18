@@ -10,18 +10,18 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class FindRequest
     {
-        public FindRequest(APIConnection connection, string nickname)
+        public FindRequest(string connection, string nickname)
         {
             Connection = connection;
             Nickname = nickname;
         }
 
         public string Nickname { get; set; }
-        public APIConnection Connection { get; set; }
+        public string Connection { get; set; }
 
         public FindResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("account/find/{nickname}", Method.GET);
             request.AddUrlSegment("nickname", Nickname);
 

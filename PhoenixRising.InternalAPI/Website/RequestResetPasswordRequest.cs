@@ -10,19 +10,20 @@ namespace PhoenixRising.InternalAPI.Website
 {
     public class RequestResetPasswordRequest
     {
-        public RequestResetPasswordRequest(APIConnection connection, string email)
+        public RequestResetPasswordRequest(string connection, string appAccessToken, string email)
         {
             Connection = connection;
+            AppAccessToken = appAccessToken;
             Email = email;
         }
 
         public string Email { get; set; }
         public string AppAccessToken { get; set; }
-        public APIConnection Connection { get; set; }
+        public string Connection { get; set; }
 
         public RequestResetPasswordResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("/app/account/passwd", Method.POST);
             request.AddHeader("userEmail", Email);
             request.AddHeader("App-Access-Token", AppAccessToken);

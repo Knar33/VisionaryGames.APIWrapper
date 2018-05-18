@@ -9,21 +9,20 @@ namespace PhoenixRising.InternalAPI.Authentication
 {
     public class LoginRequest
     {
-        public LoginRequest(APIConnection connection, string username, string password)
+        public LoginRequest(string connection, string username, string password)
         {
             Connection = connection;
             Username = username;
             Password = password;
         }
-        
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
+
+        public string Connection { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
         public LoginResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("auth/login", Method.POST);
             request.AddHeader("Username", Username);
             request.AddHeader("Password", Password);

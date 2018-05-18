@@ -15,7 +15,7 @@ namespace PhoenixRising.InternalAPI.Tests
     [TestClass]
     public class Tests
     {
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjQ3Nzg0NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.7B1KgXoA4Hps4DjPXl2m7TFYEfCi6tWhE11DtHHVNes";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjYxMTk5MywiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.7JbRC2JGUwUg3Ugi3DHiTr00_kW5hNdlT_4nTao5h6Y";
         public Guid testUser = new Guid("6d9d9295-b538-47e4-b213-e039658a8e8b");
 
         [TestMethod]
@@ -201,7 +201,6 @@ namespace PhoenixRising.InternalAPI.Tests
             request.FirstName = "Knar2";
             request.LastName = "Lhe";
             request.Nicknane = "Knar66";
-            request.Password = "Password1!";
 
             EditUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -223,6 +222,72 @@ namespace PhoenixRising.InternalAPI.Tests
             request.Developer = 0;
 
             UpdateUserPermissionsResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void ChangePassword()
+        {
+            Guid user = testUser;
+            string accessToken = testToken;
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
+
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            ChangePasswordRequest request = new ChangePasswordRequest(connection, auth);
+            request.OldPassword = "passy";
+            request.NewPassword = "password";
+
+            ChangePasswordResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void ChangeEmail()
+        {
+            Guid user = testUser;
+            string accessToken = testToken;
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
+
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            EditUserRequest request = new EditUserRequest(connection, auth);
+            request.Email = "knarrr@gmail.com";
+
+            EditUserResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void VerifyUser()
+        {
+            Guid user = testUser;
+            string accessToken = testToken;
+            int expiresTime = 12345678;
+            string refreshToken = "refreshtokenhere";
+            AuthenticationStore auth = new AuthenticationStore(user, accessToken, expiresTime, refreshToken);
+
+            APIConnection connection = new APIConnection("https://pr-api-uks-dev.azurewebsites.net/v1");
+            VerifyUserRequest request = new VerifyUserRequest(connection, auth);
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            request.AppAccessToken = bundle.Value;
+
+            request.Token = "qVKgZLaoxJJrBEmf62M782AvhZQngSNurdou13larPQBeu9isN";
+
+            VerifyUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 

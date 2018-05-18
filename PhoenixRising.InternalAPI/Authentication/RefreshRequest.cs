@@ -9,20 +9,20 @@ namespace PhoenixRising.InternalAPI.Authentication
 {
     public class RefreshRequest
     {
-        public RefreshRequest(AuthenticationStore auth, APIConnection connection)
+        public RefreshRequest(string connection, string refreshToken)
         {
-            Auth = auth;
             Connection = connection;
+            RefreshToken = refreshToken;
         }
-        
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
+
+        public string Connection { get; set; }
+        public string RefreshToken { get; set; }
 
         public RefreshResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("auth/refresh", Method.GET);
-            request.AddHeader("X-Refresh-Token", Auth.RefreshToken);
+            request.AddHeader("X-Refresh-Token", RefreshToken);
 
             var res = client.Execute<RefreshResponse>(request);
 

@@ -9,24 +9,24 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class SetStatusRequest
     {
-        public SetStatusRequest(AuthenticationStore auth, APIConnection connection, OnlineStatus onlineStatus, GameStatus gameStatus)
+        public SetStatusRequest(string connection, string accessToken, Guid userID, OnlineStatus onlineStatus, GameStatus gameStatus)
         {
-            Auth = auth;
             Connection = connection;
-            UserID = auth.UserID;
+            AccessToken = accessToken;
+            UserID = userID;
             Status = ((int)onlineStatus).ToString() + ',' + ((int)gameStatus).ToString();
         }
 
+        public string Connection { get; set; }
+        public string AccessToken { get; set; }
         public Guid UserID { get; set; }
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
         public string Status { get; set; }
 
         public SetStatusResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("account/{userID}/status", Method.POST);
-            request.AddHeader("X-Access-Token", Auth.AccessToken);
+            request.AddHeader("X-Access-Token", AccessToken);
             request.AddHeader("status", Status);
             request.AddUrlSegment("userID", UserID);
 

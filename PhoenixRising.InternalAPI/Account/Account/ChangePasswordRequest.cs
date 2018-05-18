@@ -9,25 +9,27 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class ChangePasswordRequest
     {
-        public ChangePasswordRequest(APIConnection connection, AuthenticationStore auth)
+        public ChangePasswordRequest(string connection, string accessToken, Guid userID, string oldPassword, string newPassword)
         {
             Connection = connection;
-            Auth = auth;
-            UserID = auth.UserID;
+            AccessToken = accessToken;
+            UserID = userID;
+            OldPassword = oldPassword;
+            NewPassword = newPassword;
         }
 
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
+        public string AccessToken { get; set; }
+        public string Connection { get; set; }
         public Guid UserID { get; set; }
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
 
         public ChangePasswordResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
+            RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("account/{userID}/passwd", Method.POST);
-            request.AddUrlSegment("userID", Auth.UserID);
-            request.AddHeader("X-Access-Token", Auth.AccessToken);
+            request.AddUrlSegment("userID", UserID);
+            request.AddHeader("X-Access-Token", AccessToken);
             request.AddHeader("Old-Password", OldPassword);
             request.AddHeader("New-Password", NewPassword);
 

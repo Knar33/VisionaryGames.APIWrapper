@@ -85,8 +85,6 @@
     <Compile Include="Account\Account\SetStatusResponse.cs" />
     <Compile Include="Administration\AccountAdmin\UpdateUserPermissionsRequest.cs" />
     <Compile Include="Administration\AccountAdmin\UpdateUserPermissionsResponse.cs" />
-    <Compile Include="APIConnection.cs" />
-    <Compile Include="AuthenticationStore.cs" />
     <Compile Include="Authentication\LoginRequest.cs" />
     <Compile Include="Authentication\LoginResponse.cs" />
     <Compile Include="Authentication\RefreshRequest.cs" />

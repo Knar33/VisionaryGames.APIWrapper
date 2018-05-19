@@ -16,8 +16,8 @@ namespace PhoenixRising.InternalAPI.Tests
     public class Tests
     {
         string connection = "https://pr-api-uks-dev.azurewebsites.net/v1";
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjZkOWQ5Mjk1LWI1MzgtNDdlNC1iMjEzLWUwMzk2NThhOGU4YiIsImV4cCI6MTUyNjYxNDQ2MCwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.yBOANXlQC2ATUHwZEr0UgbeCyMG1yM2sD9G3t3YCi_I";
-        public Guid testUser = new Guid("6d9d9295-b538-47e4-b213-e039658a8e8b");
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNjY5MDM3NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.H8KPob_aNZd8zKEA4pJ4tNGGvGCOUAPgR3gfn5Pgt8k";
+        public Guid testUser = new Guid("66e0db28-3fd9-6653-56dc-f02aaa393ab3");
 
         [TestMethod]
         public void FindRequest()
@@ -63,7 +63,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void Login()
         {
-            LoginRequest request = new LoginRequest(connection, "adKnar@comcast.net", "Password1!");
+            LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
             LoginResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -201,7 +201,8 @@ namespace PhoenixRising.InternalAPI.Tests
         public void ChangeEmail()
         {
             EditUserRequest request = new EditUserRequest(connection, testToken, testUser);
-            request.Email = "adKnar@comcast.net";
+            request.Email = "superfakeemail134123w45pj3mn45k8j2b3452234@gmail.com";
+            request.Password = "test";
 
             EditUserResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -229,6 +230,15 @@ namespace PhoenixRising.InternalAPI.Tests
 
 
             VerifyUserResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void ResendValidation()
+        {
+            ResendVerificationRequest request = new ResendVerificationRequest(connection, testToken, testUser);
+            ResendVerificationResponse response = request.Send();
+
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 

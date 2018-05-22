@@ -26,7 +26,7 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
         public UpdateUserPermissionsResponse Send()
         {
             RestClient client = new RestClient(Connection);
-            RestRequest request = new RestRequest("account/{userID}", Method.POST);
+            RestRequest request = new RestRequest("/admin/account/{userID}/permissions", Method.POST);
             request.AddUrlSegment("userID", UserID);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new { Developer = Developer, Administrator = Administrator, Banned = Banned});

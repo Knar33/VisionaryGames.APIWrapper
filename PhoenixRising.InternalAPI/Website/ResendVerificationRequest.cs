@@ -9,23 +9,23 @@ namespace PhoenixRising.InternalAPI.Account.Account
 {
     public class ResendVerificationRequest
     {
-        public ResendVerificationRequest(string connection, string accessToken, Guid userID)
+        public ResendVerificationRequest(string connection, string appAccessToken, string email)
         {
             Connection = connection;
-            AccessToken = accessToken;
-            UserID = userID;
+            AppAccessToken = appAccessToken;
+            Email = email;
         }
 
         public string Connection { get; set; }
-        public string AccessToken { get; set; }
-        public Guid UserID { get; set; }
+        public string AppAccessToken { get; set; }
+        public string Email { get; set; }
 
         public ResendVerificationResponse Send()
         {
             RestClient client = new RestClient(Connection);
-            RestRequest request = new RestRequest("account/{userID}/verify", Method.POST);
-            request.AddHeader("X-Access-Token", AccessToken);
-            request.AddUrlSegment("userID", UserID);
+            RestRequest request = new RestRequest("app/account/verify", Method.POST);
+            request.AddHeader("App-Access-Token", AppAccessToken);
+            request.AddHeader("Email", Email);
 
             var res = client.Execute<ResendVerificationResponse>(request);
 

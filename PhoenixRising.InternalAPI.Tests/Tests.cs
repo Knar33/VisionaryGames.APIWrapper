@@ -236,7 +236,22 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void ResendValidation()
         {
-            ResendVerificationRequest request = new ResendVerificationRequest(connection, testToken, testUser);
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            string appAccessToken = bundle.Value;
+
+            string email = "Knar.Knar@Knar.com";
+            ResendVerificationRequest request = new ResendVerificationRequest(connection, appAccessToken, email);
             ResendVerificationResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);

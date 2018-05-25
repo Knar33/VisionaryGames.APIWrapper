@@ -22,6 +22,7 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
         public int Developer { get; set; }
         public int Administrator { get; set; }
         public int Banned { get; set; }
+        public int CommunityManager { get; set; }
 
         public UpdateUserPermissionsResponse Send()
         {
@@ -29,7 +30,7 @@ namespace PhoenixRising.InternalAPI.Administration.AccountAdmin
             RestRequest request = new RestRequest("/admin/account/{userID}/permissions", Method.POST);
             request.AddUrlSegment("userID", UserID);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new { Developer = Developer, Administrator = Administrator, Banned = Banned});
+            request.AddBody(new { Developer = Developer, Administrator = Administrator, Banned = Banned, CommunityManager  = CommunityManager });
             request.AddHeader("X-Access-Token", AccessToken);
 
             var res = client.Execute<UpdateUserPermissionsResponse>(request);

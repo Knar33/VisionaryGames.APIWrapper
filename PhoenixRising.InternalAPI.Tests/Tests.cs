@@ -16,7 +16,7 @@ namespace PhoenixRising.InternalAPI.Tests
     public class Tests
     {
         string connection = "https://pr-api-uks-dev.azurewebsites.net/v1";
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNjY5MDM3NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.H8KPob_aNZd8zKEA4pJ4tNGGvGCOUAPgR3gfn5Pgt8k";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNzIyMjE4NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.6dYztUvtbH3mEKJPZanx9SGVpWV0nZ3mw1UVuGPirkw";
         public Guid testUser = new Guid("66e0db28-3fd9-6653-56dc-f02aaa393ab3");
 
         [TestMethod]
@@ -177,9 +177,10 @@ namespace PhoenixRising.InternalAPI.Tests
         public void UpdateUserPermissions()
         {
             UpdateUserPermissionsRequest request = new UpdateUserPermissionsRequest(connection, testToken, testUser);
-            request.Administrator = 0;
+            request.Administrator = 1;
             request.Banned = 0;
-            request.Developer = 0;
+            request.Developer = 1;
+            request.CommunityManager = 1;
 
             UpdateUserPermissionsResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);

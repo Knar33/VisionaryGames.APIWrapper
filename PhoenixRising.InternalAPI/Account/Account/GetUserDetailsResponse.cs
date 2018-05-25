@@ -30,7 +30,8 @@ namespace PhoenixRising.InternalAPI.Account.Account
                 {
                     Developer = res.Data.PERMISSIONS.Developer,
                     Administrator = res.Data.PERMISSIONS.Administrator,
-                    Banned = res.Data.PERMISSIONS.Banned
+                    Banned = res.Data.PERMISSIONS.Banned,
+                    CommunityManager = res.Data.PERMISSIONS.CommunityManager
                 };
             }
         }
@@ -61,6 +62,7 @@ namespace PhoenixRising.InternalAPI.Account.Account
     {
         public bool Developer { get; set; }
         public bool Administrator { get; set; }
+        public bool CommunityManager { get; set; }
         public bool Banned { get; set; }
     }
 }

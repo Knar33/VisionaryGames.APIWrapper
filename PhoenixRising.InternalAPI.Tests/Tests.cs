@@ -257,9 +257,5 @@ namespace PhoenixRising.InternalAPI.Tests
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
-
-        //TODO: make sure all requests/responses match the api doc
-
-        //TODO: parse object straight into Data instead of copying values across?
     }
 }

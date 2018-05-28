@@ -253,8 +253,8 @@ namespace PhoenixRising.InternalAPI.Tests
             string appAccessToken = bundle.Value;
 
             string email = "Knar.Knar@Knar.com";
-            SubscribeRequest request = new SubscribeRequest(connection, appAccessToken, email);
-            SubscribeResponse response = request.Send();
+            ResendVerificationRequest request = new ResendVerificationRequest(connection, appAccessToken, email);
+            ResendVerificationResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
@@ -278,8 +278,8 @@ namespace PhoenixRising.InternalAPI.Tests
             string appAccessToken = bundle.Value;
 
             string email = "Knar.Knar@Knar.com";
-            UnsubscribeRequest request = new UnsubscribeRequest(connection, appAccessToken, email);
-            UnsubscribeResponse response = request.Send();
+            SubscribeRequest request = new SubscribeRequest(connection, appAccessToken, email);
+            SubscribeResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
@@ -303,8 +303,8 @@ namespace PhoenixRising.InternalAPI.Tests
             string appAccessToken = bundle.Value;
 
             string email = "Knar.Knar@Knar.com";
-            ResendVerificationRequest request = new ResendVerificationRequest(connection, appAccessToken, email);
-            ResendVerificationResponse response = request.Send();
+            UnsubscribeRequest request = new UnsubscribeRequest(connection, appAccessToken, email);
+            UnsubscribeResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }

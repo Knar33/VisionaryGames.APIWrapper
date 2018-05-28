@@ -13,7 +13,7 @@ namespace PhoenixRising.InternalAPI.App.MailList
         {
             Connection = connection;
             AppAccessToken = appAccessToken;
-            email = Email;
+            Email = email;
         }
 
         public string Connection { get; set; }
@@ -25,7 +25,7 @@ namespace PhoenixRising.InternalAPI.App.MailList
             RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("app/mail/subscribe", Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new { Email });
+            request.AddBody(new { Email = Email });
             request.AddHeader("App-Access-Token", AppAccessToken);
 
             var res = client.Execute<SubscribeResponse>(request);

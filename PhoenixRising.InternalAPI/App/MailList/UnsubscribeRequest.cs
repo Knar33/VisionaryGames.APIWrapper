@@ -13,7 +13,7 @@ namespace PhoenixRising.InternalAPI.App.MailList
         {
             Connection = connection;
             AppAccessToken = appAccessToken;
-            email = Email;
+            Email = email;
         }
 
         public string Connection { get; set; }

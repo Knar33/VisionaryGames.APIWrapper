@@ -8,6 +8,7 @@ using PhoenixRising.InternalAPI;
 using PhoenixRising.InternalAPI.Account.Account;
 using PhoenixRising.InternalAPI.Authentication;
 using PhoenixRising.InternalAPI.Website;
+using PhoenixRising.InternalAPI.App.MailList;
 using PhoenixRising.InternalAPI.Administration.AccountAdmin;
 
 namespace PhoenixRising.InternalAPI.Tests
@@ -236,6 +237,56 @@ namespace PhoenixRising.InternalAPI.Tests
 
         [TestMethod]
         public void ResendValidation()
+        {
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            string appAccessToken = bundle.Value;
+
+            string email = "Knar.Knar@Knar.com";
+            SubscribeRequest request = new SubscribeRequest(connection, appAccessToken, email);
+            SubscribeResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+
+        [TestMethod]
+        public void Subscribe()
+        {
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+            string appAccessToken = bundle.Value;
+
+            string email = "Knar.Knar@Knar.com";
+            UnsubscribeRequest request = new UnsubscribeRequest(connection, appAccessToken, email);
+            UnsubscribeResponse response = request.Send();
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+
+        [TestMethod]
+        public void Unsubscribe()
         {
             KeyVaultClient KeyVault;
             try

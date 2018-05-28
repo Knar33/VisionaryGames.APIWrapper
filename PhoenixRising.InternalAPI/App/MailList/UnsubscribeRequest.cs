@@ -20,16 +20,16 @@ namespace PhoenixRising.InternalAPI.App.MailList
         public string AppAccessToken { get; set; }
         public string Email { get; set; }
 
-        public SubscribeResponse Send()
+        public UnsubscribeResponse Send()
         {
             RestClient client = new RestClient(Connection);
             RestRequest request = new RestRequest("app/mail/unsubscribe", Method.POST);
             request.AddHeader("App-Access-Token", AppAccessToken);
             request.AddHeader("Email", Email);
 
-            var res = client.Execute<SubscribeResponse>(request);
+            var res = client.Execute<UnsubscribeResponse>(request);
 
-            return new SubscribeResponse(res);
+            return new UnsubscribeResponse(res);
         }
     }
 }

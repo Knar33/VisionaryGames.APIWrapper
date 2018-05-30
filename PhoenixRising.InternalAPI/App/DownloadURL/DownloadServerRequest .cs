@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace PhoenixRising.InternalAPI.App.Download
+namespace PhoenixRising.InternalAPI.App.DownloadURL
 {
     public class DownloadServerRequest
     {

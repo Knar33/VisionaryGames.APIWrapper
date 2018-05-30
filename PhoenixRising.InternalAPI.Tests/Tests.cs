@@ -10,6 +10,8 @@ using PhoenixRising.InternalAPI.Authentication;
 using PhoenixRising.InternalAPI.Website;
 using PhoenixRising.InternalAPI.App.MailList;
 using PhoenixRising.InternalAPI.Administration.AccountAdmin;
+using PhoenixRising.InternalAPI.App.Download;
+using System.Diagnostics;
 
 namespace PhoenixRising.InternalAPI.Tests
 {
@@ -308,5 +310,56 @@ namespace PhoenixRising.InternalAPI.Tests
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
+
+        [TestMethod]
+        public void GetClientDownloadURL()
+        {
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+
+            DownloadClientRequest request = new DownloadClientRequest(connection, bundle.Value);
+
+            DownloadClientResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreNotEqual(response.Content, "");
+        }
+
+        [TestMethod]
+        public void GetServerDownloadURL()
+        {
+
+
+            KeyVaultClient KeyVault;
+            try
+            {
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                var _token = azureServiceTokenProvider.GetAccessTokenAsync("https://vault.azure.net").Result;
+                KeyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
+
+            DownloadServerRequest request = new DownloadServerRequest(connection, bundle.Value);
+
+            DownloadServerResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreNotEqual(response.Content, "");
+        }
+
     }
+
 }

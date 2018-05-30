@@ -277,7 +277,7 @@ namespace PhoenixRising.InternalAPI.Tests
             var bundle = KeyVault.GetSecretAsync("https://pr-kv-uks-dev.vault.azure.net/secrets/AppConnectionKey").Result;
             string appAccessToken = bundle.Value;
 
-            string email = "Knar.Knar@Knar.com";
+            string email = "adKnar@comcast.net";
             SubscribeRequest request = new SubscribeRequest(connection, appAccessToken, email);
             SubscribeResponse response = request.Send();
 

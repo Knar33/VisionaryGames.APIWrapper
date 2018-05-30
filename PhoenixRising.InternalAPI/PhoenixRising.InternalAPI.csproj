@@ -81,10 +81,10 @@
     <Compile Include="Account\Account\GetUserDetailsResponse.cs" />
     <Compile Include="Account\Account\PingRequest.cs" />
     <Compile Include="Account\Account\PingResponse.cs" />
-    <Compile Include="App\Download\DownloadServerRequest .cs" />
-    <Compile Include="App\Download\DownloadClientRequest.cs" />
-    <Compile Include="App\Download\DownloadServerResponse.cs" />
-    <Compile Include="App\Download\DownloadClientResponse.cs" />
+    <Compile Include="App\DownloadURL\DownloadServerRequest .cs" />
+    <Compile Include="App\DownloadURL\DownloadClientRequest.cs" />
+    <Compile Include="App\DownloadURL\DownloadServerResponse.cs" />
+    <Compile Include="App\DownloadURL\DownloadClientResponse.cs" />
     <Compile Include="App\MailList\SubscribeRequest.cs" />
     <Compile Include="App\MailList\SubscribeResponse.cs" />
     <Compile Include="App\MailList\UnsubscribeRequest.cs" />

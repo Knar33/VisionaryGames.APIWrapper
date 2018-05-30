@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhoenixRising.InternalAPI.App.Download
+namespace PhoenixRising.InternalAPI.App.DownloadURL
 {
     public class DownloadClientRequest
     {

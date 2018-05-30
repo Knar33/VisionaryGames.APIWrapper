@@ -10,7 +10,7 @@ using PhoenixRising.InternalAPI.Authentication;
 using PhoenixRising.InternalAPI.Website;
 using PhoenixRising.InternalAPI.App.MailList;
 using PhoenixRising.InternalAPI.Administration.AccountAdmin;
-using PhoenixRising.InternalAPI.App.Download;
+using PhoenixRising.InternalAPI.App.DownloadURL;
 using System.Diagnostics;
 
 namespace PhoenixRising.InternalAPI.Tests

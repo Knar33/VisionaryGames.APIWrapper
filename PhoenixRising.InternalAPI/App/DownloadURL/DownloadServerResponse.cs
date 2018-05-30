@@ -14,7 +14,7 @@ namespace PhoenixRising.InternalAPI.App.DownloadURL
         public DownloadServerResponse(IRestResponse<DownloadClientResponse> res)
         {
             StatusCode = res.StatusCode;
-            Content = res.Content;
+            Content = res.Content.Replace("\"", "");
         }
 
         public DownloadServerResponse()

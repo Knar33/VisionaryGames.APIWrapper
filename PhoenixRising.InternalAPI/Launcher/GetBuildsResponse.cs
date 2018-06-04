@@ -33,12 +33,6 @@ namespace PhoenixRising.InternalAPI.Launcher
     {
         public string BUILD_VERSION { get; set; }
         public string CODE_NAME { get; set; }
-        public List<EndPoint> END_POINTS { get; set; }
-    }
-
-    public class EndPoint
-    {
-        public string REGION { get; set; }
         public string END_POINT { get; set; }
     }
 }

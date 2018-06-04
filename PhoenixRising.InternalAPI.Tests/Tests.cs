@@ -20,7 +20,7 @@ namespace PhoenixRising.InternalAPI.Tests
     public class Tests
     {
         string connection = "https://pr-api-uks-dev.azurewebsites.net/v1";
-        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY2ZTBkYjI4LTNmZDktNjY1My01NmRjLWYwMmFhYTM5M2FiMyIsImV4cCI6MTUyNzIyMjE4NSwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.6dYztUvtbH3mEKJPZanx9SGVpWV0nZ3mw1UVuGPirkw";
+        public string testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjllMDE4MTdiLWVjODEtNDZlOC05ZjU0LThkMTQ2YjZlZjBjZSIsImV4cCI6MTUyODEyNzQ1NCwiaXNzIjoiYXBpLnZpc2lvbmFyeWdhbWVzLnh5eiIsImF1ZCI6InZpc2lvbmFyeWdhbWVzLnh5eiJ9.ymaM5t5jcTbAsLYnlnIUwlIM--vTWeWQXQvQfjCfEcc";
         public Guid testUser = new Guid("66e0db28-3fd9-6653-56dc-f02aaa393ab3");
 
         [TestMethod]
@@ -375,6 +375,16 @@ namespace PhoenixRising.InternalAPI.Tests
 
             GetFilesResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void GetBuildFileURL()
+        {
+            GetFileURLRequest request = new GetFileURLRequest(connection, testToken, "launcher-files-dev-31", "version.txt");
+
+            GetFileURLResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreEqual(response.Content.StartsWith("https://phoenixrisingclient.blob.core.windows.net/launcher-files-dev-31"), true);
         }
     }
 }

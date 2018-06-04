@@ -93,6 +93,8 @@
     <Compile Include="Launcher\GetBuildsResponse.cs" />
     <Compile Include="Launcher\GetFilesRequest.cs" />
     <Compile Include="Launcher\GetFilesResponse.cs" />
+    <Compile Include="Launcher\GetFileURLRequest.cs" />
+    <Compile Include="Launcher\GetFileURLResponse.cs" />
     <Compile Include="Website\ResendVerificationRequest.cs" />
     <Compile Include="Website\ResendVerificationResponse.cs" />
     <Compile Include="Account\Account\SetStatusRequest.cs" />

@@ -11,6 +11,7 @@ using PhoenixRising.InternalAPI.Website;
 using PhoenixRising.InternalAPI.App.MailList;
 using PhoenixRising.InternalAPI.Administration.AccountAdmin;
 using PhoenixRising.InternalAPI.App.DownloadURL;
+using PhoenixRising.InternalAPI.Launcher;
 using System.Diagnostics;
 
 namespace PhoenixRising.InternalAPI.Tests
@@ -338,8 +339,6 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void GetServerDownloadURL()
         {
-
-
             KeyVaultClient KeyVault;
             try
             {
@@ -360,6 +359,22 @@ namespace PhoenixRising.InternalAPI.Tests
             Assert.AreNotEqual(response.Content, "");
         }
 
-    }
+        [TestMethod]
+        public void GetBuilds()
+        {
+            GetBuildsRequest request = new GetBuildsRequest(connection);
 
+            GetBuildsResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void GetFiles()
+        {
+            GetFilesRequest request = new GetFilesRequest(connection, "DEV/64");
+
+            GetFilesResponse response = request.Send();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+    }
 }

@@ -8,18 +8,14 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Launcher
 {
-    class GetBuildsResponse
+    public class GetBuildsResponse
     {
-        public GetBuildsResponse(IRestResponse<GetBuildsResponse> res)
+        public GetBuildsResponse(IRestResponse<List<Builds>> res)
         {
             StatusCode = res.StatusCode;
             if (res.StatusCode == HttpStatusCode.OK)
             {
-
-            }
-            else
-            {
-                Content = res.Content;
+                Builds = res.Data;
             }
         }
 
@@ -28,7 +24,21 @@ namespace PhoenixRising.InternalAPI.Launcher
 
         }
 
-        public string Content { get; set; }
+        public List<Builds> Builds { get; set; }
+
         public HttpStatusCode StatusCode { get; set; }
+    }
+
+    public class Builds
+    {
+        public string BUILD_VERSION { get; set; }
+        public string CODE_NAME { get; set; }
+        public List<EndPoint> END_POINTS { get; set; }
+    }
+
+    public class EndPoint
+    {
+        public string REGION { get; set; }
+        public string END_POINT { get; set; }
     }
 }

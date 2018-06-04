@@ -7,27 +7,24 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Launcher
 {
-    class GetFilesRequest
+    public class GetFilesRequest
     {
-        public GetFilesRequest(AuthenticationStore auth, APIConnection connection)
+        public GetFilesRequest(string connection, string build)
         {
-            Auth = auth;
             Connection = connection;
-            UserID = auth.UserID;
+            Build = build;
         }
 
-        public Guid UserID { get; set; }
-        public AuthenticationStore Auth { get; set; }
-        public APIConnection Connection { get; set; }
+        public string Connection { get; set; }
+        public string Build { get; set; }
 
         public GetFilesResponse Send()
         {
-            RestClient client = new RestClient(Connection.URL);
-            RestRequest request = new RestRequest("account/{userID}/ping", Method.POST);
-            request.AddHeader("X-Access-Token", Auth.AccessToken);
-            request.AddUrlSegment("userID", UserID);
+            RestClient client = new RestClient(Connection);
+            RestRequest request = new RestRequest("launcher/builds/{build}", Method.GET);
+            request.AddUrlSegment("build", Build);
 
-            var res = client.Execute<GetFilesResponse>(request);
+            var res = client.Execute<List<GameFIle>>(request);
 
             return new GetFilesResponse(res);
         }

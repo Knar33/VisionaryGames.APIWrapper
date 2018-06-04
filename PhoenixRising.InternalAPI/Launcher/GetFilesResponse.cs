@@ -8,18 +8,14 @@ using RestSharp;
 
 namespace PhoenixRising.InternalAPI.Launcher
 {
-    class GetFilesResponse
+    public class GetFilesResponse
     {
-        public GetFilesResponse(IRestResponse<GetFilesResponse> res)
+        public GetFilesResponse(IRestResponse<List<GameFIle>> res)
         {
             StatusCode = res.StatusCode;
             if (res.StatusCode == HttpStatusCode.OK)
             {
-
-            }
-            else
-            {
-                Content = res.Content;
+                Content = res.Data;
             }
         }
 
@@ -28,7 +24,15 @@ namespace PhoenixRising.InternalAPI.Launcher
 
         }
 
-        public string Content { get; set; }
+        public List<GameFIle> Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
+    }
+
+    public class GameFIle
+    {
+        public string FILE_NAME { get; set; }
+        public string FILE_PATH { get; set; }
+        public int FILE_SIZE { get; set; }
+        public string CHECKSUM { get; set; }
     }
 }

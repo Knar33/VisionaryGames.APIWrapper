@@ -89,6 +89,10 @@
     <Compile Include="App\MailList\SubscribeResponse.cs" />
     <Compile Include="App\MailList\UnsubscribeRequest.cs" />
     <Compile Include="App\MailList\UnsubscribeResponse.cs" />
+    <Compile Include="Launcher\GetBuildsRequest.cs" />
+    <Compile Include="Launcher\GetBuildsResponse.cs" />
+    <Compile Include="Launcher\GetFilesRequest.cs" />
+    <Compile Include="Launcher\GetFilesResponse.cs" />
     <Compile Include="Website\ResendVerificationRequest.cs" />
     <Compile Include="Website\ResendVerificationResponse.cs" />
     <Compile Include="Account\Account\SetStatusRequest.cs" />

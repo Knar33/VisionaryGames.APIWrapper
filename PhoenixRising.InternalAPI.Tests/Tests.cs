@@ -67,7 +67,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void Login()
         {
-            LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
+            LoginRequest request = new LoginRequest(connection, "test@test.com", "7CujD&pg4nh");
             LoginResponse response = request.Send();
 
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
@@ -76,7 +76,7 @@ namespace PhoenixRising.InternalAPI.Tests
         [TestMethod]
         public void Refresh()
         {
-            LoginRequest request = new LoginRequest(connection, "test@test.com", "test");
+            LoginRequest request = new LoginRequest(connection, "test@test.com", "7CujD&pg4nh");
             LoginResponse response = request.Send();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
             

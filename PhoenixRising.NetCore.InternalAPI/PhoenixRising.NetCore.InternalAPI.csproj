@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Account\Friends\**" />
+    <Compile Remove="Account\SettingsHud\**" />
+    <Compile Remove="Instance\**" />
+    <Compile Remove="Mechanics\**" />
+    <EmbeddedResource Remove="Account\Friends\**" />
+    <EmbeddedResource Remove="Account\SettingsHud\**" />
+    <EmbeddedResource Remove="Instance\**" />
+    <EmbeddedResource Remove="Mechanics\**" />
+    <None Remove="Account\Friends\**" />
+    <None Remove="Account\SettingsHud\**" />
+    <None Remove="Instance\**" />
+    <None Remove="Mechanics\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Administration\AccountAdmin\BanUserRequest.cs" />
+    <Compile Remove="Administration\AccountAdmin\BanUserResponse.cs" />
+    <Compile Remove="Administration\AccountAdmin\CreateUserRequest.cs" />
+    <Compile Remove="Administration\AccountAdmin\CreateUserResponse.cs" />
+    <Compile Remove="Administration\AccountAdmin\ResetPasswordRequest.cs" />
+    <Compile Remove="Administration\AccountAdmin\ResetPasswordResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="106.3.1" />
+  </ItemGroup>
+
+</Project>

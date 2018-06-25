@@ -10,7 +10,7 @@ namespace PhoenixRising.InternalAPI.Launcher
 {
     public class GetFilesResponse
     {
-        public GetFilesResponse(IRestResponse<List<GameFIle>> res)
+        public GetFilesResponse(IRestResponse<List<GameFile>> res)
         {
             StatusCode = res.StatusCode;
             if (res.StatusCode == HttpStatusCode.OK)
@@ -24,11 +24,11 @@ namespace PhoenixRising.InternalAPI.Launcher
 
         }
 
-        public List<GameFIle> Content { get; set; }
+        public List<GameFile> Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
     }
 
-    public class GameFIle
+    public class GameFile
     {
         public string FILE_NAME { get; set; }
         public string FILE_PATH { get; set; }

@@ -32,7 +32,7 @@ namespace PhoenixRising.InternalAPI.Launcher
     {
         public string FILE_NAME { get; set; }
         public string FILE_PATH { get; set; }
-        public int FILE_SIZE { get; set; }
+        public Int64 FILE_SIZE { get; set; }
         public string CHECKSUM { get; set; }
     }
 }

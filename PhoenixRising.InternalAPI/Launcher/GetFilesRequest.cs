@@ -24,7 +24,7 @@ namespace PhoenixRising.InternalAPI.Launcher
             RestRequest request = new RestRequest("launcher/builds/{build}", Method.GET);
             request.AddUrlSegment("build", Build);
 
-            var res = client.Execute<List<GameFIle>>(request);
+            var res = client.Execute<List<GameFile>>(request);
 
             return new GetFilesResponse(res);
         }
